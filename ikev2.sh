@@ -287,11 +287,17 @@ conn roadwarrior
   # https://docs.strongswan.org/docs/5.9/config/IKEv2CipherSuites.html#_commercial_national_security_algorithm_suite
   # ... but we also allow aes256gcm16-prfsha256-ecp256, because that's sometimes just what macOS proposes
   ike=aes256gcm16-prfsha384-ecp384,aes256gcm16-prfsha256-ecp256!
-  esp=aes256gcm16-ecp384!
+  esp=aes256gcm16-ecp384,aes256gcm16-ecp256!
 
-  dpdaction=clear
-  dpddelay=900s
+  dpdaction=restart
+  dpddelay=1s
+  dpdtimeout=9000s
   rekey=no
+  ikelifetime = 24h
+  salifetime = 24h
+  keylife = 12h
+  rekeymargin =15m
+  rekeyfuzz = 100%
   left=%any
   leftid=@${VPNHOST}
   leftcert=cert.pem
